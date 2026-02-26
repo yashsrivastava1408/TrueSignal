@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+dist/
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.cache
+.mypy_cache/
+
+# React/Vite
+.vite/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Gemini/AI artifacts
+.gemini/

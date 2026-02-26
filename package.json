@@ -1,0 +1,14 @@
+{
+  "name": "zomato-kpt-hackathon",
+  "version": "1.0.0",
+  "description": "Zomato KPT Hackathon Submission",
+  "scripts": {
+    "dev:backend": "cd backend && source venv/bin/activate && uvicorn main:app --port 8000 --reload",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:full": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "simulate": "cd backend && source venv/bin/activate && python mock_data_generator.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
