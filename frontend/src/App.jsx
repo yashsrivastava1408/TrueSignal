@@ -4,7 +4,7 @@ import OverviewTab from './components/tabs/OverviewTab';
 import SimulationTab from './components/tabs/SimulationTab';
 import ArchitectureTab from './components/tabs/ArchitectureTab';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
 
 async function apiFetch(path, opts) {
   const res = await fetch(`${API_BASE}${path}`, opts);

@@ -107,6 +107,29 @@ We move from enforcement to behavioral economics:
 
 ---
 
+### 5. Quick Start & Deployment
+
+#### 5.1 Running Locally
+1.  **Backend:**
+    ```bash
+    cd backend
+    pip install -r requirements.txt
+    uvicorn main:app --reload
+    ```
+2.  **Frontend:**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+
+#### 5.2 Deployment (Production)
+*   **Backend:** Deploy the `backend` folder to **Render.com** (Python 3, Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`).
+*   **Frontend:** Deploy the `frontend` folder to **Vercel**. 
+*   **Environment Variables:** Set `VITE_API_BASE` in Vercel to point to your Render backend URL (e.g., `https://truesignal-api.onrender.com`).
+
+---
+
 ### ⚖️ Disclaimer
 This project is a **student submission** for the Zomato KPT Hackathon organized by Sunrise Mentors and Zomato. 
 - **Non-Official:** This is not an official Zomato product or service.
