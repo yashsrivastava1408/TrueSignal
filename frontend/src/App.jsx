@@ -92,33 +92,38 @@ export default function App() {
     return () => clearInterval(id);
   }, [fetchStats]);
 
-  // ── Seed 30 historical FOR events ────────────────────────────
+  // ── Seed historical data from CSV ────────────────────────────
   const seedHistory = useCallback(async () => {
     setSeeding(true);
-    addLog('Seeding 30 historical FOR events per merchant…');
-    const merchants = {
-      reliable_rest: { lat: 12.9716, lon: 77.5946, gamingProb: 0.10 },
-      spice_garden: { lat: 12.9718, lon: 77.5948, gamingProb: 0.85 },
-    };
-    for (let i = 0; i < 100; i++) {
-      for (const [id, m] of Object.entries(merchants)) {
-        const gaming = Math.random() < m.gamingProb;
-        const riderLat = gaming ? m.lat + (Math.random() * 0.002 - 0.001) : m.lat + (Math.random() * 0.04 + 0.01);
-        const riderLon = gaming ? m.lon + (Math.random() * 0.002 - 0.001) : m.lon + (Math.random() * 0.04 + 0.01);
-        await apiFetch('/mark_ready', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            order_id: `SEED-${id}-${i}`,
-            merchant_id: id,
-            merchant_loc: { lat: m.lat, lon: m.lon },
-            rider_loc: { lat: riderLat, lon: riderLon },
-          }),
-        }).catch(() => { });
+    addLog('Seeding historical events from synthetic_kpt_dataset.csv…');
+    try {
+      await apiFetch('/seed_csv', { method: 'POST' });
+      addLog('✓ History seeded from CSV. RIC scores now reflect matching dataset.');
+    } catch (err) {
+      addLog('✖ Seeding failed. Using fallback generation…');
+      // Fallback to the old logic if CSV is missing
+      const merchants = {
+        reliable_rest: { lat: 12.9716, lon: 77.5946, gamingProb: 0.10 },
+        spice_garden: { lat: 12.9718, lon: 77.5948, gamingProb: 0.85 },
+      };
+      for (let i = 0; i < 50; i++) {
+        for (const [id, m] of Object.entries(merchants)) {
+          const gaming = Math.random() < m.gamingProb;
+          const riderLat = gaming ? m.lat + (Math.random() * 0.002 - 0.001) : m.lat + (Math.random() * 0.04 + 0.01);
+          const riderLon = gaming ? m.lon + (Math.random() * 0.002 - 0.001) : m.lon + (Math.random() * 0.04 + 0.01);
+          await apiFetch('/mark_ready', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              order_id: `SEED-${id}-${i}`,
+              merchant_id: id,
+              merchant_loc: { lat: m.lat, lon: m.lon },
+              rider_loc: { lat: riderLat, lon: riderLon },
+            }),
+          }).catch(() => { });
+        }
       }
-      await new Promise(r => setTimeout(r, 5));
     }
-    addLog('✓ History seeded. RIC scores now reflect 100 days of data.');
     setSeeding(false);
     fetchStats();
   }, [addLog, fetchStats]);

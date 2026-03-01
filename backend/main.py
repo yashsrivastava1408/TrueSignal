@@ -236,11 +236,40 @@ async def get_ric(merchant_id: str):
     ric = data["rider_influenced_marks"] / data["total_for_marks"] if data["total_for_marks"] > 0 else 0.0
     return {"merchant_id": merchant_id, "ric": round(ric, 3)}
 
+def seed_from_csv():
+    csv_path = os.path.join(os.path.dirname(__file__), "synthetic_kpt_dataset.csv")
+    if not os.path.exists(csv_path):
+        return False
+    
+    with open(csv_path, mode='r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            m_id = row['merchant_id']
+            if m_id in feature_store:
+                # Calculate if it was a gaming event based on distance logic
+                # For RIC calculation, we just need to know if it was an influenced event
+                is_gaming = row['is_gaming_simulated'].lower() == 'true'
+                feature_store[m_id]["ric_history"].append(1.0 if is_gaming else 0.0)
+                # Keep history to a reasonable limit
+                if len(feature_store[m_id]["ric_history"]) > 100:
+                    feature_store[m_id]["ric_history"].pop(0)
+    return True
+
+@app.post("/seed_csv")
+async def trigger_csv_seed():
+    success = seed_from_csv()
+    return {"status": "success" if success else "failed"}
+
 @app.post("/reset")
 async def reset_store():
     """Clears the feature store. Useful for resetting demo state."""
-    feature_store.clear()
-    return {"status": "reset", "message": "Feature store cleared."}
+    global feature_store, prediction_logs
+    feature_store = {
+        "reliable_rest": {"ric_history": [], "feedback_count": 0, "accept_latencies": [], "dineout_load": 0.0},
+        "spice_garden": {"ric_history": [], "feedback_count": 0, "accept_latencies": [], "dineout_load": 0.0}
+    }
+    prediction_logs = []
+    return {"status": "reset complete"}
 
 @app.get("/")
 async def root():
