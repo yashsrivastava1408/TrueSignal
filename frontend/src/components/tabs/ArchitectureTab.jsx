@@ -2,11 +2,11 @@ import React from 'react';
 import { ChevronRight, Award, Layers, Cpu, ShieldCheck, Zap, ArrowRight, Activity } from 'lucide-react';
 
 const PIPELINE_NODES = [
-    { label: 'App Events', sub: 'GPS, FOR taps', icon: '📱', color: 'blue' },
-    { label: 'Kafka', sub: 'Event Bus', icon: '⚡', color: 'yellow' },
-    { label: 'Flink', sub: 'RIC Compute', icon: '🔧', color: 'purple' },
-    { label: 'Feature Store', sub: 'Redis Layer', icon: '🗄️', color: 'green' },
-    { label: 'KPT Model', sub: 'Inference', icon: '🧠', color: 'zomato' },
+    { label: 'Event Streams', sub: 'GPS & FOR Signals', icon: '📱', color: 'blue' },
+    { label: 'RIC Engine', sub: 'Bias Triangulation', icon: '📐', color: 'purple' },
+    { label: 'HKL Injector', sub: 'Dineout Proxy', icon: '🏢', color: 'orange' },
+    { label: 'State Layer', sub: 'SQS History', icon: '🗄️', color: 'green' },
+    { label: 'Inference', sub: 'Augmented KPT', icon: '🧠', color: 'zomato' },
 ];
 
 const SIGNAL_LAYERS = [
@@ -16,42 +16,42 @@ const SIGNAL_LAYERS = [
         color: 'blue',
         icon: <Activity className="w-5 h-5" />,
         items: [
-            'Geofenced "Ready" signal verification',
-            'Rider GPS vs Merchant Tap correlation',
-            'Behavioral trust coefficient indexing',
-        ],
-    },
-    {
-        title: 'KPT Correction',
-        phase: 'Logic Overlay',
-        color: 'green',
-        icon: <ShieldCheck className="w-5 h-5" />,
-        items: [
-            'Non-linear ETA buffering (+10–40%)',
-            'Accuracy Tiers (Gold/Silver/Bronze)',
-            'Automatic weight decay algorithm',
+            'Haversine geofence verification',
+            'Rider-Merchant proximity detection',
+            'Visual-gaming bias coefficient',
         ],
     },
     {
         title: 'Hidden Load (HKL)',
-        phase: 'Dineout Sync',
+        phase: 'Ecosystem Sync',
         color: 'orange',
         icon: <Cpu className="w-5 h-5" />,
         items: [
-            'Real-time Dineout reservation data',
-            'Walk-in traffic residual analysis',
-            'Cross-platform utilization multiplier',
+            'Real-time Dineout occupancy streams',
+            'Non-delivery kitchen pressure proxy',
+            'Cross-platform congestion multiplier',
         ],
     },
     {
-        title: 'Feedback Loop',
-        phase: 'Active Learning',
+        title: 'Quality Index (SQS)',
+        phase: 'Merchant Trust',
+        color: 'green',
+        icon: <ShieldCheck className="w-5 h-5" />,
+        items: [
+            'Rolling Signal Quality Score (SQS)',
+            'Reliability-based Accuracy Tiers',
+            'Dynamic trust decay algorithms',
+        ],
+    },
+    {
+        title: 'Aware Dispatch (SDS)',
+        phase: 'Wait Reduction',
         color: 'purple',
         icon: <Zap className="w-5 h-5" />,
         items: [
-            'Rider "Still Waiting" micro-prompts',
-            'Ground-truth label collection',
-            'Active signal correction weightings',
+            'Signal-Aware Dispatch Offsets',
+            'Rider idle-time prevention (SDS)',
+            'CO₂ footprint reduction targeting',
         ],
     },
 ];
