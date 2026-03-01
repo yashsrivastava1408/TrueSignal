@@ -1,14 +1,37 @@
 # TrueSignal KPT Engine — Zomato Hackathon Submission
 ## Signal Integrity Layer for Kitchen Prep Time Prediction
-**Production-inspired architecture • Scalable to 300K+ Merchants • Zero Model Retraining Required**
+**Team SUDARSHAN** | Yash Srivastava, Vanshika
+
+**Production-inspired architecture | Scalable to 300K+ Merchants | Zero Model Retraining Required**
 
 **TrueSignal** is a signal-integrity layer designed to improve Kitchen Prep Time (KPT) prediction without modifying existing models. Instead of building a new predictor, we enhance input reliability by triangulating multiple real-world signals.
+
+**Quick Links**
+- Live Demo: https://true-signal-five.vercel.app
+- Synthetic Dataset: https://github.com/yashsrivastava1408/TrueSignal/blob/main/backend/synthetic_kpt_dataset.csv
+- Signal Analysis: https://github.com/yashsrivastava1408/TrueSignal/blob/main/backend/mock_data_generator.py
 
 ---
 
 ### 0. Executive Summary: The Signal Integrity Advantage
 
-**The Core Insight:** KPT prediction today is a signal problem, not a model problem. We improve KPT accuracy by fixing signal quality at the source — using automated geofencing, reliability scoring (SQS), and ecological data integration.
+**The Core Insight:** KPT prediction today is a signal problem, not a model problem. We improve KPT accuracy by fixing signal quality at the source by using automated geofencing, reliability scoring (SQS), and ecological data integration.
+
+---
+
+### Judge Quick Start
+
+To evaluate quickly, follow this sequence:
+1. Open the **Overview** tab to see signal drift and corrected KPT behavior.
+2. Open **Live Simulation**, click **Seed 30-Day History**, then **Start Live Sim**.
+3. Compare **Spice Garden** (high rider-influenced FOR behavior) vs **Reliable Rest** (stable behavior).
+4. Open **Architecture** tab for the end-to-end signal pipeline and trust-tier logic.
+5. Review `backend/mock_data_generator.py` for dataset generation and analysis assumptions.
+
+Expected demo output:
+- Spice Garden shows higher RIC and lower SQS than Reliable Rest over time.
+- Adjusted KPT increases for lower-trust or high-hidden-load scenarios.
+- Dispatch delay is applied for low-SQS merchants to reduce rider idle wait.
 
 | Strategy | Technical Implementation | Business Impact |
 | :--- | :--- | :--- |
@@ -130,11 +153,11 @@ We move from enforcement to behavioral economics:
 
 ---
 
-### ⚖️ Disclaimer
+### Disclaimer
 This project is a **student submission** for the Zomato KPT Hackathon organized by Sunrise Mentors and Zomato. 
 - **Non-Official:** This is not an official Zomato product or service.
 - **Data:** All data shown in the demo is **synthetically generated** for simulation purposes only.
 - **Branding:** Zomato and Dineout logos used are for **demonstrative purposes** within the hackathon scope.
+- **Confidentiality Note:** Problem statement details and solution specifics are intended only for hackathon evaluation and should not be shared publicly outside permitted submission links.
 
 *Fix the signals. The predictions fix themselves.*
-
